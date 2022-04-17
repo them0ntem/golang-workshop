@@ -1,3 +1,3 @@
-module them0ntem/golang-workshop
+module golang_workshop
 
 go 1.18
