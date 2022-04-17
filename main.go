@@ -3,5 +3,8 @@ package main
 import "fmt"
 
 func main() {
-	fmt.Println("Hello world!")
+	msg, err := Hello("World")
+	if err == nil {
+		fmt.Println(msg)
+	}
 }
