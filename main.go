@@ -8,3 +8,8 @@ func main() {
 		fmt.Println(msg)
 	}
 }
+
+func Hello(name string) (string, error) {
+	greetings := fmt.Sprintf("Hello %v!", name)
+	return greetings, nil
+}
