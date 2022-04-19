@@ -1,18 +1,11 @@
+/*
+Copyright © 2022 NAME HERE <EMAIL ADDRESS>
+
+*/
 package main
 
-import (
-	"github.com/gin-gonic/gin"
-)
+import "golang_workshop/cmd"
 
 func main() {
-	router := gin.Default()
-	router.GET("/ping", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"message": "pong",
-		})
-	})
-	err := router.Run()
-	if err != nil {
-		return
-	}
+	cmd.Execute()
 }
