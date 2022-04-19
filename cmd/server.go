@@ -8,7 +8,13 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/spf13/cobra"
+	"golang_workshop/facade"
+	"net/http"
 )
+
+type ReverseAPIInput struct {
+	Text string
+}
 
 // serverCmd represents the server command
 var serverCmd = &cobra.Command{
@@ -43,9 +49,18 @@ func init() {
 func runServer(port string) {
 	fmt.Printf("runServer at port %v", port)
 	router := gin.Default()
-	router.GET("/ping", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"message": "pong",
+	router.POST("/reverse", func(c *gin.Context) {
+		var apiInput ReverseAPIInput
+		if err := c.BindJSON(&apiInput); err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{
+				"reverse": "",
+				"message": "Invalid input",
+			})
+		}
+		rev := facade.Reverse(apiInput.Text)
+		c.JSON(http.StatusOK, gin.H{
+			"reverse": rev,
+			"message": "",
 		})
 	})
 	err := router.Run(fmt.Sprintf(":%v", port))
