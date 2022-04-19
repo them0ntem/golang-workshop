@@ -5,7 +5,12 @@ Copyright © 2022 NAME HERE <EMAIL ADDRESS>
 package cmd
 
 import (
+	"bytes"
+	"encoding/json"
 	"fmt"
+	"io"
+	"log"
+	"net/http"
 
 	"github.com/spf13/cobra"
 )
@@ -43,5 +48,14 @@ func init() {
 }
 
 func runClient(serverUrl string, text string) {
-	fmt.Printf("runClient with server_url:%v and text:%v", serverUrl, text)
+	postBody, _ := json.Marshal(map[string]string{
+		"text": text,
+	})
+	responseBody := bytes.NewBuffer(postBody)
+	out, err := http.Post(serverUrl+"/reverse", "application/json", responseBody)
+	if err != nil {
+		log.Fatalln(err)
+	}
+	bytesArr, _ := io.ReadAll(out.Body)
+	fmt.Println(string(bytesArr))
 }
