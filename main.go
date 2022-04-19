@@ -1,15 +1,11 @@
+/*
+Copyright © 2022 NAME HERE <EMAIL ADDRESS>
+
+*/
 package main
 
-import (
-	"fmt"
-	"golang_workshop/facade"
-)
+import "golang_workshop/cmd"
 
 func main() {
-	input := "The quick brown fox jumped over the lazy dog"
-	rev := facade.Reverse(input)
-	doubleRev := facade.Reverse(rev)
-	fmt.Printf("original: %q\n", input)
-	fmt.Printf("reversed: %q\n", rev)
-	fmt.Printf("reversed again: %q\n", doubleRev)
+	cmd.Execute()
 }
