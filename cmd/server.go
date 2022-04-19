@@ -6,6 +6,7 @@ package cmd
 
 import (
 	"fmt"
+	"github.com/gin-gonic/gin"
 	"github.com/spf13/cobra"
 )
 
@@ -41,4 +42,14 @@ func init() {
 
 func runServer(port string) {
 	fmt.Printf("runServer at port %v", port)
+	router := gin.Default()
+	router.GET("/ping", func(c *gin.Context) {
+		c.JSON(200, gin.H{
+			"message": "pong",
+		})
+	})
+	err := router.Run(fmt.Sprintf(":%v", port))
+	if err != nil {
+		return
+	}
 }
